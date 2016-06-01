@@ -1,0 +1,10 @@
+config.php
+xml_procesados
+zip_procesados
+xml
+tmp
+/config.php
+/xml_procesados
+/zip_procesados
+/xml
+/tmp
