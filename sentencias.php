@@ -5,10 +5,11 @@
 class registro extends items{
 
 	public static function conectar_db(){
+		global $servidor, $usuario, $pass;
 		//DESARROLLO
 		//$conectar = mysql_connect('humbermarccs.dyndns.tv', 'adminroot', 'adminr00t24');
 		//PRODUCCION
-		$conectar = mysql_connect('registro.tuagencia24.com', 'adminroot', 'adminr00t24');
+		$conectar = mysql_connect($servidor, $usuario, $pass);
 
 		//$conectar=mysql_connect("humbermarccs.dyndns.tv","adminroot","adminr00t24");
 		mysql_select_db('registro_boletos',$conectar);
