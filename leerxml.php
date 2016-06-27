@@ -1,31 +1,41 @@
 <?php
-
-$folder = "/var/www/cron/xml";
+include "config.php";//Incluir la clase registro
+$folder = "/var/www/cron_kiu/xml";
 $directorio = opendir($folder); //ruta actual
-function original_ticket_search($ticket){//Función para buscar el ticket original en caso de cambio de status
-			$ticketOriginal=$ticket->KIU_OriginalTicketNumber;
-			$ticketOriginal=$ticket->KIU_OriginalTicketInfo["KIU_OriginalTicketNumber"];
-            return $ticketOriginal;
-		}
+$drive_folder=$folder;
+
+$m=date("F");
+$y=date("Y");
+/*ZIP PROCESADOS*/
+$xml_folder_processed = $xml_folder_processed."/".$y;
+if (!file_exists($xml_folder_processed)) {
+	mkdir($xml_folder_processed, 0777, true);
+}
+$xml_folder_processed = $xml_folder_processed."/".$m;
+if (!file_exists($xml_folder_processed)) {
+	mkdir($xml_folder_processed, 0777, true);
+}
+/*XML PROCESADOS*/
+$drive_folder_processed = $drive_folder_processed."/".$y;
+if (!file_exists($drive_folder_processed)) {
+	mkdir($drive_folder_processed, 0777, true);
+}		
+$drive_folder_processed = $drive_folder_processed."/".$m;
+if (!file_exists($drive_folder_processed)) {
+	mkdir($drive_folder_processed, 0777, true);
+}		
 
 while ($archivo = readdir($directorio)) //Obtenemos un archivo y luego otro sucesivamente
 {
 	$cont++;
 	$xml_file = $folder."/".$archivo;
-	$xml = simplexml_load_file($xml_file);//Convertir en Objeto.
-	$TimestampGMT = $xml["TimestampGMT"];//Fecha de emisión
-	
-	foreach ($xml->KIU_TktDisplay as $ticket) {//FOREACH Recorrer todos los datos del boleto
-		echo "<h3>$cont ".$ticket->TicketItemInfo["TicketNumber"]." Fecha: ".$TimestampGMT;
-		//$ticketOriginal=$ticket->KIU_OriginalTicketInfo["KIU_OriginalTicketNumber"]; //ticket original reemitido jmangarret may2016
-		$ticketOriginal=original_ticket_search($ticket);
-		if ($ticketOriginal>0){
-			$sqlUpdate="UPDATE boletos SET status_emission='Reemitido' WHERE ticketNumber='".$ticketOriginal."'";
-			echo "ticketOriginal: ".$ticketOriginal;
-		}else{
-			echo "Ticket original no encontrado";
-		}
-	}
+	//$xml = simplexml_load_file($xml_file);//Convertir en Objeto.
+	//$TimestampGMT = $xml["TimestampGMT"];//Fecha de emisión
+
+
+    rename ($drive_folder."/".$archivo,$xml_folder_processed."/".$archivo);
+
+    echo "<br>VUELTA ".$cont . " - ".$xml_folder_processed;
 	
 }
 ?>

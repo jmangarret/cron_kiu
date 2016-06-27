@@ -9,9 +9,28 @@ include "sentencias.php";//Incluir la clase registro
 include "config.php";//Incluir la clase registro
 
 registro::conectar_db();
-
-
-//$drive_folder = "C:/Users/Administrator/prueba_zip";
+/*PARCHE PARA PASAR PROCESADOS A CARPETAS MENSUALES POR AÑO jmangarret 22jun2016*/
+$m=date("F");
+$y=date("Y");
+/*ZIP PROCESADOS*/
+$xml_folder_processed = $xml_folder_processed."/".$y;
+if (!file_exists($xml_folder_processed)) {
+  mkdir($xml_folder_processed, 0777, true);
+}
+$xml_folder_processed = $xml_folder_processed."/".$m;
+if (!file_exists($xml_folder_processed)) {
+  mkdir($xml_folder_processed, 0777, true);
+}
+/*XML PROCESADOS*/
+$drive_folder_processed = $drive_folder_processed."/".$y;
+if (!file_exists($drive_folder_processed)) {
+  mkdir($drive_folder_processed, 0777, true);
+}   
+$drive_folder_processed = $drive_folder_processed."/".$m;
+if (!file_exists($drive_folder_processed)) {
+  mkdir($drive_folder_processed, 0777, true);
+}  
+/*FIN PARCHE PARA PASAR PROCESADOS A CARPETAS MENSUALES*/
 
 $zip_drive = opendir($drive_folder); //Ruta de los ZIP de Google Drive
 
