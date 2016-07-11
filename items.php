@@ -214,7 +214,12 @@
 			if (self::status_emission_name_search($ticket)=="Reemitido"){
             	$creationDate=$TimestampGMT;
             }
-            return $creationDate;
+            //Restamos 3 horas y media por diferencia horaria de servidores Kiu.
+			$nuevafecha = strtotime ('-3 hour',strtotime($creationDate));
+			$nuevafecha = date ( 'Y-m-d H:i:s' , $nuevafecha );
+			$nuevafecha = strtotime ('-30 minute',strtotime($nuevafecha));
+			$nuevafecha = date ( 'Y-m-d H:i:s' , $nuevafecha );
+			return $nuevafecha;
 		}
 	}
 	
