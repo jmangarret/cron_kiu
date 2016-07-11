@@ -89,8 +89,13 @@ public static function recorrer_xml($ticket,$id,$TimestampGMT){
             $localizador = 	$items->process_localizador($ticket);//Anexar status al id del localizador
 			            
             $passenger 	= $ticket->PassengerName->Surname."/".$ticket->PassengerName->GivenName;
+                       //Restamos 3 horas y media por diferencia horaria de servidores Kiu.
+			$nuevafecha = strtotime ('-3 hour',strtotime($TimestampGMT));
+			$nuevafecha = date ( 'Y-m-d H:i:s' , $nuevafecha );
+			$nuevafecha = strtotime ('-30 minute',strtotime($nuevafecha));
+			$nuevafecha = date ( 'Y-m-d H:i:s' , $nuevafecha );
 
-            $creationDate=$items->process_date($ticket,$TimestampGMT);
+            $creationDate=$items->process_date($ticket,$nuevafecha);
             
             // Inserta los datos del XML en la tabla 
             $qry = "INSERT INTO boletos ".
@@ -107,7 +112,7 @@ public static function recorrer_xml($ticket,$id,$TimestampGMT){
                 '".$coupon_status."',
                 '".$passenger."',
                 'Kiu',
-                '".$TimestampGMT."',
+                '".$nuevafecha."',
                 '".$creationDate."',
                 '".$ticket->FlightReference->FlightSegment["DepartureDateTime"]."',
                 'NULL',

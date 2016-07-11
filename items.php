@@ -211,14 +211,14 @@
 
 		public static function process_date($ticket,$TimestampGMT){//Función que valida la fecha de creacion para emision y reeemision			
 			$creationDate=$ticket->BOD->Source["PNR_DateOfCreationGMT"].":00";			
-			if (self::status_emission_name_search($ticket)=="Reemitido"){
-            	$creationDate=$TimestampGMT;
-            }
-            //Restamos 3 horas y media por diferencia horaria de servidores Kiu.
+			//Restamos 3 horas y media por diferencia horaria de servidores Kiu.
 			$nuevafecha = strtotime ('-3 hour',strtotime($creationDate));
 			$nuevafecha = date ( 'Y-m-d H:i:s' , $nuevafecha );
 			$nuevafecha = strtotime ('-30 minute',strtotime($nuevafecha));
 			$nuevafecha = date ( 'Y-m-d H:i:s' , $nuevafecha );
+			if (self::status_emission_name_search($ticket)=="Reemitido"){
+            	$nuevafecha=$TimestampGMT;
+            }
 			return $nuevafecha;
 		}
 	}
