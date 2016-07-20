@@ -179,7 +179,7 @@ while ($archivo = readdir($directorio)) //Obtenemos un archivo y luego otro suce
                                   echo "No se encontró el ID del XML<br>";
                                   echo "/*--------------------------------------------*/<br>";
                                   $fecha_error = date("Y-m-d H:i:s.");
-                                  $log = registro::logs(mysql_errno(), mysql_error(), "No se encontro el ID del XML", $fecha_error);
+                                  $log = registro::logs(mysql_errno(), mysql_error(), "No se encontro el ID del XML ". $archivo, $fecha_error);
                                   mysql_query($log);
                               }
                       }
@@ -194,7 +194,7 @@ while ($archivo = readdir($directorio)) //Obtenemos un archivo y luego otro suce
                           printf("Error message: %s\n", mysql_error().'<br>');
                           echo "/*--------------------------------------------*/<br>";
                           $fecha_error = date("Y-m-d H:i:s.");
-                          $log = registro::logs(mysql_errno(), mysql_error(), "Datos del boleto XML no insertado", $fecha_error);
+                          $log = registro::logs(mysql_errno(), mysql_error(), "Datos del boleto XML no insertado ".$archivo, $fecha_error);
                           mysql_query($log);
                          }
                       }
@@ -227,7 +227,7 @@ while ($archivo = readdir($directorio)) //Obtenemos un archivo y luego otro suce
                                     echo "No se encontró el ID del XML<br>";
                                     echo "/*--------------------------------------------*/<br>";
                                     $fecha_error = date("Y-m-d H:i:s.");
-                                    $log = registro::logs(mysql_errno(), mysql_error(), "No se encontro el ID del XML", $fecha_error);
+                                    $log = registro::logs(mysql_errno(), mysql_error(), "No se encontro el ID del XML ".$archivo, $fecha_error);
                                     mysql_query($log);
                                 }
                         }
@@ -242,7 +242,7 @@ while ($archivo = readdir($directorio)) //Obtenemos un archivo y luego otro suce
                             printf("Error message: %s\n", mysql_error().'<br>');
                             echo "/*--------------------------------------------*/<br>";
                             $fecha_error = date("Y-m-d H:i:s.");
-                            $log = registro::logs(mysql_errno(), mysql_error(), "Datos del boleto XML no insertado", $fecha_error);
+                            $log = registro::logs(mysql_errno(), mysql_error(), "Datos del boleto XML no insertado ".$archivo, $fecha_error);
                             mysql_query($log);
                            }
                         }
