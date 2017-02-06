@@ -96,6 +96,10 @@ public static function recorrer_xml($ticket,$id,$TimestampGMT){
 			$nuevafecha = date ( 'Y-m-d H:i:s' , $nuevafecha );
 
             $creationDate=$items->process_date($ticket,$nuevafecha);
+
+            //jmangarret 06ene2017 - Modificamos aerolinea K8 para convertirla en Laser/QL
+            $MarketingAirline=$ticket->FlightReference->FlightSegment["MarketingAirline"];
+            $airline=($MarketingAirline=="K8" ? "QL" : $MarketingAirline);
             
             // Inserta los datos del XML en la tabla 
             $qry = "INSERT INTO boletos ".
@@ -117,7 +121,7 @@ public static function recorrer_xml($ticket,$id,$TimestampGMT){
                 '".$ticket->FlightReference->FlightSegment["DepartureDateTime"]."',
                 'NULL',
                 '".$TicketNumber."',
-                '".$ticket->FlightReference->FlightSegment["MarketingAirline"]."',
+                '".$airline."',
                 '".$yn_tax."',
                 '".$ticket->FormsOfPayment->FormOfPayment["AmountTaxes"]."',
                 '".$iata_transac."',
